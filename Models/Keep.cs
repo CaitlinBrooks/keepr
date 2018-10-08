@@ -20,4 +20,4 @@ namespace keepr.Models
 
   }
 }
-// Needs to be marked private by utilizing a bool to switch from from true and false. 
+// Should it be marked private here to handle that later on? Utilizing a bool to switch from from true and false. Yes. Tinyint.
