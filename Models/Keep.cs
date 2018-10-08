@@ -6,18 +6,34 @@ namespace keepr.Models
 {
   public class Keep
   {
-    public string Img { get; set; }
+    public string UserId { get; set; }
     public int Id { get; set; }
+    public string Img { get; set; }
     [Required]
     [MinLength(6)]
     public string Name { get; set; }
     [Required]
     [MaxLength(255)]
     public string Description { get; set; }
+    public bool IsPrivate { get; set; } // Use Tinyint and cast it with a bool to flip from logged out to logged in.
     public int Views { get; set; }
     public int Keeps { get; set; }
     public int Shares { get; set; }
 
+    public Keep(string userId, string Img, string name, string description) //needs these to create a keep
+    {
+      UserId = userId;
+      Img = img;
+      Name = name;
+      Description = description;
+    }
+    public Keep() { }
   }
 }
-// Should it be marked private here to handle that later on? Utilizing a bool to switch from from true and false. Yes. Tinyint.
+  }
+}
+
+
+
+
+
