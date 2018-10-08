@@ -73,7 +73,7 @@ namespace keepr.Repositories
 
     //     SELECT* FROM vaultkeeps vk
     // INNER JOIN keeps k ON k.id = vk.keepId
-    // WHERE (vaultId = 2)
+    // WHERE (vaultId = 2) // ask about this, I don't totally understand. Does this go where line 68 is?
 
     public int Delete(int id)
     {
