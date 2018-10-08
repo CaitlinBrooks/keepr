@@ -29,7 +29,7 @@ namespace keepr.Controllers
     {
       if (ModelState.IsValid) //Related to Tinyint and the model. Need to figure out.
       {
-        keep = new Keep(keep.UserId, keep.Img, keep.Name, keep.Description);
+        keep = new Keep(keep.UserId, keep.img, keep.Name, keep.Description);
         return _repo.Create(keep);
       }
       throw new Exception("INVALID KEEP");
