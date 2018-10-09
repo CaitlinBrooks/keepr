@@ -49,6 +49,13 @@ namespace keepr.Models
 //   }
 // }
 
+// use this for postman
+// {
+// 	"userId": "be57dce1-9311-42a3-bf11-c743e4e29fb6",
+// 	"Img": "http://www.umbra.com/media/catalog/product/cache/8/small_image/1826x/9df78eab33525d08d6e5fb8d27136e95/u/m/umbra_HUB_MIRROR_358370-040_01.jpg",
+// 	"name": "circular mirror",
+// 	"description": "Potential mirror for home remodel."
+// }
 
-
-
+// Test User Id
+// e435a03a-bba1-4348-b487-01358ff6ba70
