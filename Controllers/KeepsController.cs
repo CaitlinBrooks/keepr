@@ -30,11 +30,11 @@ namespace keepr.Controllers
       return _repo.GetbyVaultId(id);
     }
 
-    [HttpGet("{userid}")]
-    public IEnumerable<Keep> Get(string userid)
-    {
-      return _repo.GetById(userid);
-    }
+    // [HttpGet("{userid}")]
+    // public IEnumerable<Keep> Get(string userid)
+    // {
+    //   return _repo.GetById(userid);
+    // }
 
     // [Authorize]
     [HttpPost]
@@ -46,6 +46,12 @@ namespace keepr.Controllers
         return _repo.Create(keep);
       }
       throw new Exception("INVALID KEEP");
+    }
+
+    [HttpDelete("{id}")]
+    public void Delete(Keep keep)
+    {
+      _repo.Delete(keep);
     }
 
   }
