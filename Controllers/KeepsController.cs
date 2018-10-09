@@ -24,6 +24,18 @@ namespace keepr.Controllers
       return keeps;
     }
 
+    [HttpGet("{vault/{Id}")]
+    public IEnumerable<Keep> Get(int id)
+    {
+      return _repo.GetbyVaultId(id);
+    }
+
+    [HttpGet("{userid}")]
+    public IEnumerable<Keep> Get(string userid)
+    {
+      return _repo.GetById(userid);
+    }
+
     // [Authorize]
     [HttpPost]
     public Keep Post([FromBody] Keep keep)
