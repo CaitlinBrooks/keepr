@@ -88,7 +88,7 @@ namespace keepr.Repositories
       return _db.Query<Keep>(@"
         SELECT * FROM userkeeps
         INNER JOIN keeps ON keeps.id = userkeeps.keepId
-        WHERE userId = @id
+        WHERE id = @userId
       ", new { id });
     }
 
