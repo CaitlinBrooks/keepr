@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace keepr.Models
 {
-  public class VaultKeeps
+  public class VaultKeep
   {
     public int Id { get; set; }
     public string UserId { get; set; }
@@ -38,6 +38,16 @@ namespace keepr.Models
   }
 }
 
+// public VaultKeep(string Id, string UserId, string VaultId, string KeepId) //needs these to create a vaultkeep
+// {
+//   Id = id;
+//   UserId = userId;
+//   VaultId = vaultId;
+//   KeepId = keepId;
+// }
+// public VaultKeep() { }
+//   }
+// }
 
 
 

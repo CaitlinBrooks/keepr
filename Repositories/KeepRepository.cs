@@ -29,7 +29,12 @@ namespace keepr.Repositories
     {
       return _db.Query<Keep>("SELECT * FROM keeps WHERE id = @id;", new { id }).FirstOrDefault();
     }
+    // GET KEEP BY VAULT ID
 
+    public IEnumerable<Keep> GetbyVaultId(int id)
+    {
+      return _db.Query<Keep>("SELECT * FROM vaultkeeps vk INNER JOIN keep k ON k.id = vk.keepId WHERE (vaultId = @vaultId);");
+    }
     //CREATE KEEP
     public Keep Create(Keep keep)
     {
@@ -40,6 +45,16 @@ namespace keepr.Repositories
       );
       keep.Id = id;
       return keep;
+    }
+    public VaultKeep CreateVaultKeep(VaultKeep vaultkeep)
+    {
+      int id = _db.ExecuteScalar<int>(@"
+        INSERT INTO vaultkeeps (id, userId, vaultId, keepId)
+        VALUES (@Id, @UserId, @VaultId, @KeepId);
+        SELECT LAST_INSERT_ID();", vaultkeep
+      );
+      vaultkeep.Id = id;
+      return vaultkeep;
     }
 
     //UPDATE KEEP
@@ -60,7 +75,13 @@ namespace keepr.Repositories
       return keep;
     }
 
+    //DELETE VAULTKEEP
 
+    public VaultKeep Delete(VaultKeep vaultkeep)
+    {
+      _db.Execute("DELETE FROM vaultkeeps WHERE vaultkeepid = @Id", vaultkeep);
+      return vaultkeep;
+    }
 
     public IEnumerable<Keep> GetKeepsByUserId(string id)
     {
@@ -73,14 +94,11 @@ namespace keepr.Repositories
 
     //     SELECT* FROM vaultkeeps vk
     // INNER JOIN keeps k ON k.id = vk.keepId
-    // WHERE (vaultId = 2) // ask about this, I don't totally understand. Does this go where line 68 is?
+    // WHERE (vaultId = 2) // ask about this, I don't totally understand.
 
     public int Delete(int id)
     {
       return _db.Execute("DELETE FROM keeps WHERE id = @id", new { id });
     }
-
-
   }
-
 }
