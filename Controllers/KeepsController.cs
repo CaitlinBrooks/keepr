@@ -28,7 +28,7 @@ namespace keepr.Controllers
     [HttpPost]
     public Keep Post([FromBody] Keep keep)
     {
-      if (ModelState.IsValid) //Related to Tinyint and the model. Need to figure out.
+      if (ModelState.IsValid)
       {
         keep = new Keep(keep.UserId, keep.Img, keep.Name, keep.Description);
         return _repo.Create(keep);

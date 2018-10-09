@@ -27,7 +27,7 @@ namespace keepr.Controllers
     [HttpPost]
     public Vault Post([FromBody] Vault vault)
     {
-      if (ModelState.IsValid) //Related to Tinyint and the model. Need to figure out.
+      if (ModelState.IsValid)
       {
         vault = new Vault(vault.UserId, vault.Name, vault.Description);
         return _repo.Create(vault);
