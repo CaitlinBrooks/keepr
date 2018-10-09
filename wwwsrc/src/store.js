@@ -56,6 +56,14 @@ export default new Vuex.Store({
         .catch(e => {
           console.log('Login Failed')
         })
+    },
+    getAllKeeps({ commit, dispatch }) {
+      debugger
+      api.get('keeps')
+        .then(res => {
+          commit('setKeeps', res.data)
+        })
     }
   }
 })
+
