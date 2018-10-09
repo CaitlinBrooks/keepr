@@ -16,6 +16,12 @@ namespace keepr.Controllers
     {
       _repo = repo;
     }
+    // Trying to get by userId, will need to do a getuservault?
+    // [HttpGet("{UserId}")]
+
+    // public IEnumerable<Vault> Get(){
+    //   public IEnumerable<Vault> 
+    // }
 
     [HttpGet]
     public IEnumerable<Vault> Get()
@@ -35,6 +41,7 @@ namespace keepr.Controllers
       throw new Exception("INVALID VAULT");
     }
 
-  }
 
+
+  }
 }
