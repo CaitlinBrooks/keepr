@@ -20,10 +20,11 @@ namespace keepr.Controllers
     [HttpGet]
     public IEnumerable<Keep> Get()
     {
-      return _repo.GetAll();
+      var keeps = _repo.GetAll();
+      return keeps;
     }
 
-    [Authorize]
+    // [Authorize]
     [HttpPost]
     public Keep Post([FromBody] Keep keep)
     {
