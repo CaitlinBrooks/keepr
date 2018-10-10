@@ -20,11 +20,18 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
-    keeps: {},
+    keeps: [],
     vaults: [],
-    vaultkeeps: {}
+    keepsById: [],
+    vaultkeeps: []
   },
   mutations: {
+    setVaultsById(state, vaultsById) {
+      state.keeps = vaultsById
+    },
+    setKeepsById(state, keepsById) {
+      state.keeps = keepsById
+    },
     setKeeps(state, keeps) {
       state.keeps = keeps
     },
@@ -83,6 +90,18 @@ export default new Vuex.Store({
         })
         .catch(error => {
           console.log("Unable to create keep")
+        })
+    },
+    deleteKeep({ dispatch }, keepData) {
+      api.post("keeps", keepData)
+        .then(res => {
+          dispatch("getKeepById", keepData.userId)
+        })
+    },
+    getKeepById({ commit }, userId) {
+      api.get("keeps/" + userId)
+        .then(res => {
+          commit("setKeepById", res.data)
         })
     },
     newVault({ commit, dispatch }, creds) {
