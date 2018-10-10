@@ -22,6 +22,7 @@ export default new Vuex.Store({
     user: {},
     keeps: {},
     vaults: [],
+
     vaultkeeps: {}
   },
   mutations: {
@@ -102,7 +103,6 @@ export default new Vuex.Store({
     //     })
     //   }, NEED THIS BY USERID
     getAllKeeps({ commit, dispatch }) {
-      debugger
       api.get('keeps')
         .then(res => {
           commit('setKeeps', res.data)
