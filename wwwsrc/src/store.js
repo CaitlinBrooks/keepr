@@ -22,7 +22,6 @@ export default new Vuex.Store({
     user: {},
     keeps: {},
     vaults: [],
-
     vaultkeeps: {}
   },
   mutations: {
@@ -105,7 +104,7 @@ export default new Vuex.Store({
     getAllKeeps({ commit, dispatch }) {
       api.get('keeps')
         .then(res => {
-          commit('setKeeps', res.data)
+          commit('setKeeps', res.data) // this is public, would need to be used before logging in and then getbyId would be for user specifically.
         })
     }
   }
