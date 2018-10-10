@@ -119,6 +119,18 @@ export default new Vuex.Store({
           console.log("Unable to create vault")
         })
     },
+    deleteVault({ dispatch }, vaultData) {
+      api.post("keeps", vaultData)
+        .then(res => {
+          dispatch("getKeepById", vaultData.userId)
+        })
+    },
+    getVaultById({ commit }, userId) {
+      api.get("vaults/" + userId)
+        .then(res => {
+          commit("setVaultById", res.data)
+        })
+    },
     // getAllVaults({ commit, dispatch }) {
     //   debugger
     //   api.get('keeps')
