@@ -64,6 +64,31 @@ export default new Vuex.Store({
           router.push({ name: 'login' })
         })
     },
+    newKeep({ commit, dispatch }, creds) {
+      auth.post('', creds)
+        .then(res => {
+          commit('')
+        })
+        .catch(error => {
+          console.log("Unable to create keep")
+        })
+    },
+    newVault({ commit, dispatch }, creds) {
+      auth.post('', creds)
+        .then(res => {
+          commit('')
+        })
+        .catch(error => {
+          console.log("Unable to create vault")
+        })
+    },
+    // getAllVaults({ commit, dispatch }) {
+    //   debugger
+    //   api.get('keeps')
+    //     .then(res => {
+    //       commit('setKeeps', res.data)
+    //     })
+    //   }, NEED THIS BY USERID
     getAllKeeps({ commit, dispatch }) {
       debugger
       api.get('keeps')
