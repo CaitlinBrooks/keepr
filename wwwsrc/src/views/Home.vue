@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Welcome Home</h1>
+    <h1>Welcome User!</h1>
   </div>
 </template>
 
@@ -13,6 +13,7 @@
       },
       components() {
         getAllKeeps
+        getVaultsById
       },
       mounted() {
         this.$store.dispatch("getVaultsById", this.$store.state.user.id); // need this to be created in the store
