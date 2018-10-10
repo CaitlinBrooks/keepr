@@ -103,6 +103,12 @@ export default new Vuex.Store({
         .then(res => {
           commit("setKeepById", res.data)
         })
+      // getKeepsByVaultId({ commit }, vaultId) {
+      //   api.get("keeps/vault/" + vaultId)
+      //     .then(res => {
+      //       commit("setKeepsByVaultId", { userId, vaultId, keepId })
+      //     })
+      // }
     },
     newVault({ commit, dispatch }, creds) {
       auth.post('', creds)
@@ -126,12 +132,6 @@ export default new Vuex.Store({
           commit('setKeeps', res.data) // this is public, would need to be used before logging in and then getbyId would be for user specifically.
         })
     },
-    getVaultKeeps({ commit }, vaultId) {
-      api.get("keeps/vault/" + vaultId)
-        .then(res => {
-          commit("setVaultKeeps", { userId, vaultId, keepId })
-        })
-    }
   }
 })
 
