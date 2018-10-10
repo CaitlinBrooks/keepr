@@ -35,6 +35,18 @@ namespace keepr
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddCors(options =>
+      {
+        options.AddPolicy("CorsDevPolicy", builder =>
+            {
+              builder
+              .AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+            });
+      });
+
       //ADD USER AUTH through JWT
       services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
         .AddCookie(options =>
@@ -47,21 +59,10 @@ namespace keepr
           };
         });
 
-      services.AddCors(options =>
-      {
-        options.AddPolicy("CorsDevPolicy", builder =>
-            {
-              builder
-              .AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader()
-              .AllowCredentials();
-            });
-      });
       services.AddMvc();
+      services.AddTransient<IDbConnection>(x => CreateDBContext());
       services.AddTransient<KeepsRepository>();
       services.AddTransient<VaultsRepository>();
-      services.AddTransient<IDbConnection>(x => CreateDBContext());
       services.AddTransient<UserRepository>();
       // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
     }
@@ -76,11 +77,12 @@ namespace keepr
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
+      app.UseCors("CorsDevPolicy");
 
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
-        app.UseCors("CorsDevPolicy");
+        //app.UseCors("CorsDevPolicy");
       }
       else
       {

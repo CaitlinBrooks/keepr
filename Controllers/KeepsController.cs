@@ -24,7 +24,7 @@ namespace keepr.Controllers
       return keeps;
     }
 
-    [HttpGet("{vault/{Id}")]
+    [HttpGet("{{id}}")]
     public IEnumerable<Keep> Get(int id)
     {
       return _repo.GetbyVaultId(id);
@@ -48,10 +48,10 @@ namespace keepr.Controllers
       throw new Exception("INVALID KEEP");
     }
 
-    [HttpDelete("{id}")]
-    public void Delete(Keep keep)
+    [HttpDelete("{{id}}")]
+    public void Delete(int keepId)
     {
-      _repo.Delete(keep);
+      _repo.Delete(keepId);
     }
 
   }
