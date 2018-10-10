@@ -8,7 +8,7 @@
   export default {
     name: "home",
     mounted() {
-      this.$store.dispatch("")
+      this.$store.dispatch('getAllKeeps')
       //blocks users not logged in
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
