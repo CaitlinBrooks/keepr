@@ -79,8 +79,5 @@ namespace keepr.Repositories
     {
       return _db.Execute("DELETE FROM vaults WHERE id = @id", new { id });
     }
-
-
   }
-
 }
