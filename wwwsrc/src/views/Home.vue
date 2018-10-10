@@ -16,8 +16,9 @@
         getAllKeeps
       },
       mounted() {
-        this.$store.dispatch("getAllKeeps", this.$store.state.user.id);
         this.$store.dispatch("getVaultsById", this.$store.state.user.id); // need this to be created in the store
+        this.$store.dispatch("getKeepsById", this.$store.state.user.id); // need this to be created in the store
+        this.$store.dispatch("getAllKeeps", this.$store.state.user.id);
 
         //blocks users not logged in
         if (!this.$store.state.user.id) {
