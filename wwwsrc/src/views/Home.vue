@@ -12,7 +12,7 @@
         return this.$store.state.user;
       },
       components() {
-        getAllKeeps
+        getAllKeeps // review this
         getVaultsById
       },
       mounted() {
