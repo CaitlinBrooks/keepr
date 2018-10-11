@@ -1,6 +1,6 @@
 <template>
   <div class="vaultKeeps">
-    <h1>Welcome {{user.username}}</h1>
+    <h1>Welcome {{user.username}}!</h1>
   </div>
 </template>
 
