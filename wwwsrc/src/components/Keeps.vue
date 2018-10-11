@@ -1,11 +1,13 @@
 <template>
   <div class="publicKeeps">
     <h1>Keeps</h1>
-    <div v-for="keep in keeps" :key="keep.id">
-      <div class="keepCard" v-if="keep.isPrivate == 0">
-        <img :src="keep.img" class="keepCard" alt="keep.name" style="width:200px;height:200px;">
-        <p>Title: {{keep.name}}</p>
-        <!-- <p>{{keep.description}}</p> -->
+    <div class="row" v-for="keep in keeps" :key="keep.id">
+      <div class="col-12">
+        <div class="keepCard" v-if="keep.isPrivate == 0">
+          <img :src="keep.img" class="keepCard" alt="keep.name" style="width:200px;height:200px;">
+          <!-- <p>{{keep.name}}</p> -->
+          <!-- <p>{{keep.description}}</p> -->
+        </div>
       </div>
     </div>
   </div>

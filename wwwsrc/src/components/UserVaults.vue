@@ -20,7 +20,7 @@
       }
     },
     components: {
-      VaultKeeps
+      // VaultKeeps
     }
   };
 </script>
