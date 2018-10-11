@@ -1,10 +1,10 @@
 <template>
   <div class="userKeeps">
-    <h1>Keeps</h1>
+    <h1>Your Keeps</h1>
     <!-- <div class="keepCard" v-if="keep.isPrivate == 0"> -->
     <div v-for="keep in keepsById" :key="keepsById.id">
       <img :src="keep.img" class="keepCard" alt="keep.name">
-      <p>Title: {{keepsById.title}}</p>
+      <p>Title: {{keepsById.name}}</p>
       <p>Description: {{keepsById.description}}</p>
     </div>
   </div>
