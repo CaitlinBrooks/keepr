@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <h1>Dashboard</h1>
-    <getKeepById></getKeepById>
-    <getVaultById></getVaultById>
+    <UserKeeps></UserKeeps>
+    <UserVaults></UserVaults>
   </div>
 </template>
 
@@ -15,19 +15,19 @@
     computed: {
       user() {
         return this.$store.state.user;
-      },
-      components() {
-        getKeepById
-        getVaultById
-      },
-      mounted() {
-        this.$store.dispatch("getVaultById");
-        this.$store.dispatch("getKeepsById");
+      }
+    },
+    components: {
+      UserKeeps,
+      UserVaults
+    },
+    mounted() {
+      this.$store.dispatch("getVaultById");
+      this.$store.dispatch("getKeepsById");
 
-        //blocks users not logged in
-        if (!this.$store.state.user.id) {
-          this.$router.push({ name: "login" });
-        }
+      //blocks users not logged in
+      if (!this.$store.state.user.id) {
+        this.$router.push({ name: "login" });
       }
     }
   };
