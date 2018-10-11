@@ -1,5 +1,5 @@
 <template>
-  <div class="results">
+  <div class="generalKeeps">
     <h1>Keeps</h1>
     <div class="keepCard" v-if="keep.isPrivate == 0">
       <div v-for="keep in keeps" :key="keep.id">

@@ -51,10 +51,10 @@
         mounted: {
             getAllKeeps() {
                 this.$store.dispatch("getAllKeeps");
-            },
-            components: {
-                Keeps
             }
         },
+        components: {
+            Keeps
+        }
     };
 </script>
