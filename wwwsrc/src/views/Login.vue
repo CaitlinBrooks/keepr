@@ -15,6 +15,7 @@
             <p v-if="loginForm">No Account? Click to Register</p>
             <p v-else>Already have an account? Click to Login</p>
         </div>
+        <keeps></keeps>
     </div>
 </template>
 
@@ -48,10 +49,8 @@
                 this.$store.dispatch("login", this.creds);
             }
         },
-        mounted: {
-            getAllKeeps() {
-                this.$store.dispatch("getAllKeeps");
-            }
+        mounted() {
+            this.$store.dispatch("getAllKeeps");
         },
         components: {
             Keeps
