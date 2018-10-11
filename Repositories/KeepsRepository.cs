@@ -25,15 +25,15 @@ namespace keepr.Repositories
     }
 
     //GET KEEP BY ID
-    public Keep GetById(int id)
+    public IEnumerable<Keep> GetById(string id)
     {
-      return _db.Query<Keep>("SELECT * FROM keeps WHERE id = @id;", new { id }).FirstOrDefault();
+      return _db.Query<Keep>("SELECT * FROM keeps WHERE id = @id;", new { id });
     }
     // GET KEEP BY VAULT ID
 
     public IEnumerable<Keep> GetbyVaultId(int id)
     {
-      return _db.Query<Keep>("SELECT * FROM vaultkeeps vk INNER JOIN keep k ON k.id = vk.keepId WHERE (vaultId = @vaultId);");
+      return _db.Query<Keep>("SELECT * FROM vaultkeeps vk INNER JOIN keep k ON k.id = vk.keepId WHERE (vaultId = @vaultId);", new { id });
     }
     //CREATE KEEP
     public Keep Create(Keep keep)
@@ -41,7 +41,7 @@ namespace keepr.Repositories
       int id = _db.ExecuteScalar<int>(@"
         INSERT INTO keeps (name, description, Img, userId)
         VALUES (@Name, @Description, @Img, @userId);
-        SELECT LAST_INSERT_ID();", keep // ask about this, I don't understand flow
+        SELECT LAST_INSERT_ID();", keep
       );
       keep.Id = id;
       return keep;

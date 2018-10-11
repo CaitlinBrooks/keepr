@@ -3,6 +3,7 @@
     <h1>Dashboard</h1>
     <UserKeeps></UserKeeps>
     <UserVaults></UserVaults>
+    <button @click="logout">Logout</button>
   </div>
 </template>
 
@@ -22,12 +23,17 @@
       UserVaults
     },
     mounted() {
-      this.$store.dispatch("getVaultById");
-      this.$store.dispatch("getKeepsById");
+      this.$store.dispatch("getVaultsByUserId", this.user.id);
+      this.$store.dispatch("getKeepsByUserId", this.user.id);
 
       //blocks users not logged in
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
+      }
+    },
+    methods: {
+      logout() {
+        this.$store.dispatch("logout")
       }
     }
   };

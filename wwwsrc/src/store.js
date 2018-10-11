@@ -76,10 +76,9 @@ export default new Vuex.Store({
           console.log('Login Failed')
         })
     },
-    logout({ commit, dispatch }, creds) {
+    logout({ commit, dispatch }) {
       auth.delete('logout')
         .then(res => {
-          commit('setUser', res.data)
           router.push({ name: 'login' })
         })
     },
@@ -98,7 +97,7 @@ export default new Vuex.Store({
           dispatch("getKeepById", keepData.userId)
         })
     },
-    getKeepById({ commit }, userId) {
+    getKeepsByUserId({ commit }, userId) {
       api.get("keeps/" + userId)
         .then(res => {
           commit("setKeepById", res.data)
@@ -126,7 +125,7 @@ export default new Vuex.Store({
           dispatch("getKeepById", vaultData.userId)
         })
     },
-    getVaultById({ commit }, userId) {
+    getVaultsByUserId({ commit }, userId) {
       api.get("vaults/" + userId)
         .then(res => {
           commit("setVaultById", res.data)
