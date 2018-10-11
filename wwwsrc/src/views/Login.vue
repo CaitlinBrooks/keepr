@@ -19,6 +19,7 @@
 </template>
 
 <script>
+    import Keeps from "../components/Keeps.vue"
     export default {
         name: "login",
         mounted() {
@@ -45,14 +46,15 @@
             },
             loginUser() {
                 this.$store.dispatch("login", this.creds);
+            }
+        },
+        mounted: {
+            getAllKeeps() {
+                this.$store.dispatch("getAllKeeps");
             },
-        }
-        // },
-        // mounted: {
-        //     this.$store.dispatch("getAllKeeps");
-        // },
-        // components: {
-        //     Keeps
-        // }
+            components: {
+                Keeps
+            }
+        },
     };
 </script>
