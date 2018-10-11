@@ -19,9 +19,9 @@ namespace keepr.Repositories
     //CRUD VIA SQL
 
     //GET ALL VAULTS
-    public IEnumerable<Vault> GetAll()
+    public IEnumerable<Vault> GetAll(string userId)
     {
-      return _db.Query<Vault>("SELECT * FROM vaults;");
+      return _db.Query<Vault>("SELECT * FROM vaults WHERE userId = @userId;", new { userId });
     }
 
     //GET VAULT BY ID

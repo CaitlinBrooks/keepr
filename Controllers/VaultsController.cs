@@ -22,11 +22,12 @@ namespace keepr.Controllers
     // public IEnumerable<Vault> Get(){
     //   public IEnumerable<Vault> 
     // }
-
+    [Authorize]
     [HttpGet]
     public IEnumerable<Vault> Get()
     {
-      return _repo.GetAll();
+      var id = HttpContext.User.Identity.Name;
+      return _repo.GetAll(id);
     }
 
     [Authorize]

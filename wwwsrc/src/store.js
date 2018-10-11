@@ -29,7 +29,7 @@ export default new Vuex.Store({
     setVaultsById(state, vaultsById) {
       state.keeps = vaultsById
     },
-    setKeepsById(state, keepsById) {
+    setKeepsByUserId(state, keepsById) {
       state.keeps = keepsById
     },
     setKeeps(state, keeps) {
@@ -83,7 +83,7 @@ export default new Vuex.Store({
         })
     },
     newKeep({ commit, dispatch }, creds) {
-      auth.post('', creds)
+      api.post('keeps', creds)
         .then(res => {
           commit('')
         })
@@ -100,7 +100,7 @@ export default new Vuex.Store({
     getKeepsByUserId({ commit }, userId) {
       api.get("keeps/" + userId)
         .then(res => {
-          commit("setKeepById", res.data)
+          commit("setKeepsByUserId", res.data)
         })
     },
     //   getKeepsByVaultId({ commit }, vaultId) {
@@ -126,7 +126,7 @@ export default new Vuex.Store({
         })
     },
     getVaultsByUserId({ commit }, userId) {
-      api.get("vaults/" + userId)
+      api.get("vaults")
         .then(res => {
           commit("setVaultById", res.data)
         })
