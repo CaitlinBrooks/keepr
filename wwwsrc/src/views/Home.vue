@@ -6,19 +6,18 @@
 
 <script>
   export default {
+    //THIS IS THE USERS DASHBOARD
     name: "home",
     computed: {
       user() {
         return this.$store.state.user;
       },
       components() {
-        getAllKeeps // review this
-        getVaultsById
+        Keeps // all the keeps regardless of sign-in
       },
       mounted() {
-        this.$store.dispatch("getVaultsById", this.$store.state.user.id); // need this to be created in the store
-        this.$store.dispatch("getKeepsById", this.$store.state.user.id); // need this to be created in the store
-        this.$store.dispatch("getAllKeeps", this.$store.state.user.id);
+        // this.$store.dispatch("getVaultsById", this.$store.state.user.id);
+        // this.$store.dispatch("getKeepsById", this.$store.state.user.id);
 
         //blocks users not logged in
         if (!this.$store.state.user.id) {

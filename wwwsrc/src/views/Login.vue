@@ -12,8 +12,8 @@
             <button type="submit">Create Account</button>
         </form>
         <div @click="loginForm = !loginForm">
-            <p v-if="loginForm">No account Click to Register</p>
-            <p v-else>Already have an account click to Login</p>
+            <p v-if="loginForm">No Account? Click to Register</p>
+            <p v-else>Already have an account? Click to Login</p>
         </div>
     </div>
 </template>
@@ -45,7 +45,14 @@
             },
             loginUser() {
                 this.$store.dispatch("login", this.creds);
-            }
+            },
         }
+        // },
+        // mounted: {
+        //     this.$store.dispatch("getAllKeeps");
+        // },
+        // components: {
+        //     Keeps
+        // }
     };
 </script>
