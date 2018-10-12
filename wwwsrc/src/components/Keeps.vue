@@ -1,6 +1,6 @@
 <template>
   <div class="publicKeeps">
-    <h1>Keeps</h1>
+    <h1>Public Keeps</h1>
     <div class="row" v-for="keep in keeps" :key="keep.id">
       <div class="col-12">
         <div class="keepCard" v-if="keep.isPrivate == 0">
