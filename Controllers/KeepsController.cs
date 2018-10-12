@@ -37,7 +37,7 @@ namespace keepr.Controllers
       return _repo.GetById(userid);
     }
 
-    // [Authorize]
+    [Authorize]
     [HttpPost]
     public Keep Post([FromBody] Keep keep)
     {
