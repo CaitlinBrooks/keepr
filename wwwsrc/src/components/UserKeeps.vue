@@ -4,11 +4,11 @@
     <!-- <div class="keepCard" v-if="keep.isPrivate == 0"> -->
     <div v-for="keep in keepsById" :key="keepsById.id">
       <img :src="keep.img" class="keepCard" alt="keep.name">
-      <p>Title: {{keep.name}}</p>
+      <!-- <p>Title: {{keep.name}}</p>
       <p>Description: {{keep.description}}</p>
       <p>Views: {{keep.views}}</p>
       <p>Keeps: {{keep.keeps}}</p>
-      <p>Shares: {{keep.shares}}</p>
+      <p>Shares: {{keep.shares}}</p> -->
     </div>
   </div>
   </div>
