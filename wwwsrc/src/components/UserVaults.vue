@@ -16,7 +16,7 @@
     name: "userVaults",
     computed: {
       vaultsById() {
-        return this.$store.state.vaultsById;
+        return this.$store.state.vaults;
       }
     },
     components: {
