@@ -30,7 +30,7 @@ export default new Vuex.Store({
       state.keeps = vaultsById
     },
     setKeepsByUserId(state, keepsById) {
-      state.keeps = keepsById
+      state.keepsById = keepsById
     },
     setKeeps(state, keeps) {
       state.keeps = keeps
@@ -39,7 +39,7 @@ export default new Vuex.Store({
       state.vaults = vaults
     },
     setVaultKeeps(state, vaultkeeps) {
-      state.vaults = vaultkeeps
+      state.vaultkeeps = vaultkeeps
     },
     setUser(state, user) {
       state.user = user

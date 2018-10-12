@@ -22,6 +22,7 @@
       keepsById() {
         return this.$store.state.keepsById;
       }
+
     }
   };
 </script>
