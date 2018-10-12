@@ -3,7 +3,7 @@
     <h1>Your Keeps</h1>
     <!-- <div class="keepCard" v-if="keep.isPrivate == 0"> -->
     <div v-for="keep in keepsById" :key="keepsById.id">
-      <img :src="keep.img" class="keepCard" alt="keep.name">
+      <img :src="keep.img" class="keepCard" alt="keep.name" style="width:200px;height:200px;">
       <!-- <p>Title: {{keep.name}}</p>
       <p>Description: {{keep.description}}</p>
       <p>Views: {{keep.views}}</p>
