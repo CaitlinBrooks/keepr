@@ -26,7 +26,7 @@ export default new Vuex.Store({
     vaultkeeps: []
   },
   mutations: {
-    setVaultsById(state, vaultsById) {
+    setVaultById(state, vaultsById) {
       state.keeps = vaultsById
     },
     setKeepsByUserId(state, keepsById) {

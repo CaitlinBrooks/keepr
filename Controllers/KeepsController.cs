@@ -33,6 +33,7 @@ namespace keepr.Controllers
     [HttpGet("{userid}")]
     public IEnumerable<Keep> Get(string userid)
     {
+      userid = HttpContext.User.Identity.Name;
       return _repo.GetById(userid);
     }
 
