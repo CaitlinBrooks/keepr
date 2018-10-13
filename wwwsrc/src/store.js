@@ -120,13 +120,10 @@ export default new Vuex.Store({
     },
 
     // VAULTS
-    newVault({ commit, dispatch }, creds) {
-      auth.post('', creds)
+    newVault({ commit, dispatch }, vaultData) {
+      api.post('vaults', vaultData)
         .then(res => {
-          commit('')
-        })
-        .catch(error => {
-          console.log("Unable to create vault")
+          dispatch('getAllVaults')
         })
     },
     deleteVault({ dispatch }, vaultData) {
