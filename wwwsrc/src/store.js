@@ -120,16 +120,19 @@ export default new Vuex.Store({
     },
 
     // VAULTS
+    moveToVaults() {
+      router.push({ name: 'vaults' })
+    },
     newVault({ commit, dispatch }, vaultData) {
       api.post('vaults', vaultData)
         .then(res => {
           dispatch('getAllVaults')
         })
     },
-    deleteVault({ dispatch }, vaultData) {
-      api.post("keeps", vaultData)
+    deleteVault({ commit, dispatch }, vaultId) {
+      api.delete("vaults/", vaultId)
         .then(res => {
-          dispatch("getKeepById", vaultData.userId)
+          dispatch('getAllVaults')
         })
     },
     getVaultById({ commit, dispatch }, vaultId) {
