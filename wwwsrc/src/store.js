@@ -105,13 +105,12 @@ export default new Vuex.Store({
           commit("setKeepsByUserId", res.data)
         })
     },
-    //   getKeepsByVaultId({ commit }, vaultId) {
-    //     api.get("keeps/vault/" + vaultId)
-    //       .then(res => {
-    //         commit("setKeepsByVaultId", {vaultId, keepId: keepData })
-    //       })
-    //   }
-    // },
+    getKeepsByVaultId({ commit, dispatch }, vaultId) {
+      api.get("keeps/vault/" + vaultId)
+        .then(res => {
+          commit("setKeepsByVaultId", res.data)
+        })
+    },
     getAllKeeps({ commit, dispatch }) {
       api.get('keeps')
         .then(res => {
