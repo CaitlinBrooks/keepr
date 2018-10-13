@@ -35,6 +35,9 @@
       logout() {
         this.$store.dispatch("logout")
       }
+    },
+    newKeep() {
+      return this.$store.dispatch("newKeep", this.keep);
     }
   };
 </script>
