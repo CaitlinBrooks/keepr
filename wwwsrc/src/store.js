@@ -83,6 +83,7 @@ export default new Vuex.Store({
           router.push({ name: 'login' })
         })
     },
+
     // KEEPS
     newKeep({ commit, dispatch }, keepData) {
       api.post('keeps', keepData)
@@ -92,6 +93,12 @@ export default new Vuex.Store({
     },
     updateKeep({ commit, dispatch }, keep) {
       api.put('keeps' + keep.id, keep)
+        .then(res => {
+          dispatch('getAllKeeps')
+        })
+    },
+    moveKeepToVault({ commit, dispatch }, payload) {
+      api.post('/vaultkeeps', payload.vaultkeep)
         .then(res => {
           dispatch('getAllKeeps')
         })
@@ -122,7 +129,7 @@ export default new Vuex.Store({
     },
 
     // VAULTS
-    moveToVaults() {
+    moveKeepToVaults() {
       router.push({ name: 'vaults' })
     },
     newVault({ commit, dispatch }, vaultData) {
