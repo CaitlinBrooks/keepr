@@ -84,19 +84,22 @@ export default new Vuex.Store({
         })
     },
     // KEEPS
-    newKeep({ commit, dispatch }, creds) {
-      api.post('keeps', creds)
+    newKeep({ commit, dispatch }, keepData) {
+      api.post('keeps', keepData)
         .then(res => {
-          commit('')
-        })
-        .catch(error => {
-          console.log("Unable to create keep")
+          dispatch('getAllKeeps')
         })
     },
-    deleteKeep({ dispatch }, keepData) {
-      api.post("keeps", keepData)
+    updateKeep({ commit, dispatch }, keep) {
+      api.put('keeps' + keep.id, keep)
         .then(res => {
-          dispatch("getKeepById", keepData.userId)
+          dispatch('getAllKeeps')
+        })
+    },
+    deleteKeep({ commit, dispatch }, keepData) {
+      api.post("keeps", keepData.id)
+        .then(res => {
+          dispatch('getAllKeeps')
         })
     },
     getKeepsByUserId({ commit }, userId) {
