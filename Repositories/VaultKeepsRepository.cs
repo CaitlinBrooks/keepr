@@ -1,86 +1,106 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Collections.Generic;
-using BCrypt.Net;
 using keepr.Models;
 using Dapper;
 
-namespace keepr.Repositories
+namespace VaultKeeps.Repositories
 {
+
   public class VaultKeepsRepository
   {
-
-    IDbConnection _db;
+    private IDbConnection _db;
     public string TableName = "vaultkeeps";
 
-    //REGISTER
-    public User Register(UserRegistration creds)
-    {
-      //generate the user id
-      //HASH THE PASSWORD
-      string id = Guid.NewGuid().ToString();
-      string hash = BCrypt.Net.BCrypt.HashPassword(creds.Password);
-      int success = _db.Execute(@"
-        INSERT INTO users (id, username, email, hash)
-        VALUES (@id, @username, @email, @hash);
-      ", new
-      {
-        id,
-        username = creds.Username,
-        email = creds.Email,
-        hash
-      });
-
-      if (success != 1) { return null; }
-
-      return new User()
-      {
-        Username = creds.Username,
-        Email = creds.Email,
-        Hash = null,
-        Id = id
-      };
-    }
-
-    //LOGIN 
-    public User Login(UserLogin creds)
-    {
-      User user = _db.Query<User>(@"
-                SELECT * FROM users WHERE email = @Email
-                ", creds).FirstOrDefault();
-      if (user == null) { return null; }
-      bool validPass = BCrypt.Net.BCrypt.Verify(creds.Password, user.Hash);
-      if (!validPass) { return null; }
-      user.Hash = null;
-      return user;
-    }
-
-    internal User GetUserById(string id)
-    {
-      var user = _db.Query<User>(@"
-      SELECT * FROM users WHERE id = @id
-      ", new { id }).FirstOrDefault();
-      if (user != null)
-      {
-        user.Hash = null;
-      }
-      return user;
-    }
-
-
-    //Update   u
-    //CHANGE PASS u
-    //DELETE   D
-
-
-
-    public UserRepository(IDbConnection db)
+    public VaultKeepsRepository(IDbConnection db)
     {
       _db = db;
     }
 
+    //CRUD VIA SQL
 
+    //GET ALL KEEPS
+    public IEnumerable<Keep> GetAll()
+    {
+      return _db.Query<Keep>("SELECT * FROM keeps;");
+    }
 
+    //GET KEEP BY ID
+    public IEnumerable<Keep> GetById(string userid)
+    {
+      return _db.Query<Keep>("SELECT * FROM keeps WHERE userid = @userid;", new { userid });
+    }
+    // GET KEEP BY VAULT ID
+
+    public IEnumerable<Keep> GetbyVaultId(int id)
+    {
+      return _db.Query<Keep>("SELECT * FROM vaultkeeps vk INNER JOIN keep k ON k.id = vk.keepId WHERE (vaultId = @vaultId);", new { id });
+    }
+    //CREATE KEEP
+    public Keep Create(Keep keep)
+    {
+      int id = _db.ExecuteScalar<int>(@"
+        INSERT INTO keeps (name, description, Img, userId)
+        VALUES (@Name, @Description, @Img, @userId);
+        SELECT LAST_INSERT_ID();", keep
+      );
+      keep.Id = id;
+      return keep;
+    }
+    public VaultKeep CreateVaultKeep(VaultKeep vaultkeep)
+    {
+      int id = _db.ExecuteScalar<int>(@"
+        INSERT INTO vaultkeeps (id, userId, vaultId, keepId)
+        VALUES (@Id, @UserId, @VaultId, @KeepId);
+        SELECT LAST_INSERT_ID();", vaultkeep
+      );
+      vaultkeep.Id = id;
+      return vaultkeep;
+    }
+
+    //UPDATE KEEP
+    public Keep Update(Keep keep)
+    {
+      _db.Execute(@"
+      UPDATE keeps SET (userId, Id, img, name, description, isPrivate, views, keeps, shares) 
+      VALUES (@userId, @Id, @img, @name, @description, @isPrivate, @views, @keeps, @shares)
+      WHERE id = @Id
+      ", keep);
+      return keep;
+    }
+
+    //DELETE KEEP
+    public Keep Delete(Keep keep)
+    {
+      _db.Execute("DELETE FROM keeps WHERE id = @Id", keep);
+      return keep;
+    }
+
+    //DELETE VAULTKEEP
+
+    public VaultKeep Delete(VaultKeep vaultkeep)
+    {
+      _db.Execute("DELETE FROM vaultkeeps WHERE vaultkeepid = @Id", vaultkeep);
+      return vaultkeep;
+    }
+
+    public IEnumerable<Keep> GetKeepsByUserId(string id)
+    {
+      return _db.Query<Keep>(@"
+        SELECT * FROM userkeeps
+        INNER JOIN keeps ON keeps.id = userkeeps.keepId
+        WHERE id = @userId
+      ", new { id });
+    }
+
+    //     SELECT* FROM vaultkeeps vk
+    // INNER JOIN keeps k ON k.id = vk.keepId
+    // WHERE (vaultId = 2) // ask about this, I don't totally understand.
+
+    public int Delete(int id)
+    {
+      return _db.Execute("DELETE FROM keeps WHERE id = @id", new { id });
+    }
   }
 }
