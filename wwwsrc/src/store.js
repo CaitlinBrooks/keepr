@@ -23,11 +23,12 @@ export default new Vuex.Store({
     keeps: [],
     vaults: [],
     keepsById: [],
+    currentVault: {},
     vaultkeeps: []
   },
   mutations: {
-    setVaultById(state, vaultsById) {
-      state.keeps = vaultsById
+    setVaultById(state, vault) {
+      state.currentVault = vault
     },
     setKeepsByUserId(state, keepsById) {
       state.keepsById = keepsById
@@ -82,6 +83,7 @@ export default new Vuex.Store({
           router.push({ name: 'login' })
         })
     },
+    // KEEPS
     newKeep({ commit, dispatch }, creds) {
       api.post('keeps', creds)
         .then(res => {
@@ -110,6 +112,14 @@ export default new Vuex.Store({
     //       })
     //   }
     // },
+    getAllKeeps({ commit, dispatch }) {
+      api.get('keeps')
+        .then(res => {
+          commit('setKeeps', res.data) // this is public, would need to be used before logging in and then getbyId would be for user specifically.
+        })
+    },
+
+    // VAULTS
     newVault({ commit, dispatch }, creds) {
       auth.post('', creds)
         .then(res => {
@@ -125,23 +135,16 @@ export default new Vuex.Store({
           dispatch("getKeepById", vaultData.userId)
         })
     },
-    getVaultsByUserId({ commit }, userId) {
-      api.get("vaults")
+    getVaultById({ commit, dispatch }, vaultId) {
+      api.get('vaults/' + vaultId)
         .then(res => {
           commit("setVaultById", res.data)
         })
     },
-    // getAllVaults({ commit, dispatch }) {
-    //   debugger
-    //   api.get('keeps')
-    //     .then(res => {
-    //       commit('setKeeps', res.data)
-    //     })
-    //   }, NEED THIS BY USERID
-    getAllKeeps({ commit, dispatch }) {
-      api.get('keeps')
+    getAllVaults({ commit, dispatch }) {
+      api.get('vaults')
         .then(res => {
-          commit('setKeeps', res.data) // this is public, would need to be used before logging in and then getbyId would be for user specifically.
+          commit('setVaults', res.data)
         })
     },
   }
