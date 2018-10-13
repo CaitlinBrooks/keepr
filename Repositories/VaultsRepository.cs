@@ -62,7 +62,7 @@ namespace keepr.Repositories
 
 
 
-    public IEnumerable<Vault> GetVaultsByUserId(string id)
+    public IEnumerable<Vault> GetVaultsById(string id)
     {
       return _db.Query<Vault>(@"
         SELECT * FROM uservaults
