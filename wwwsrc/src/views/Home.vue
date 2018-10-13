@@ -23,7 +23,7 @@
       UserVaults
     },
     mounted() {
-      this.$store.dispatch("getVaultsById", this.user.id);
+      this.$store.dispatch("getVaultById", this.user.id);
       this.$store.dispatch("getKeepsByUserId", this.user.id);
 
       //blocks users not logged in
