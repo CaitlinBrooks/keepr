@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <h1>Dashboard</h1>
-    <UserKeeps></UserKeeps>
     <UserVaults></UserVaults>
     <button @click="logout">Logout</button>
   </div>

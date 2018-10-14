@@ -1,10 +1,16 @@
 <template>
   <div class="userVaults">
+    <form @submit.prevent="createNewVault">
+      <input type="text" placeholder="Vault Name" v-model="newVault.name" required>
+      <input type="text" placeholder="Description" v-model="newVault.description" required>
+      <button type="submit">Create Vault</button>
+    </form>
     <h1>Your Vaults</h1>
     <!-- <div class="keepCard" v-if="keep.isPrivate == 0"> -->
-    <div v-for="vault in vaultsById" :key="vaultsById.id">
-      <img :src="keep.img" class="keepCard" alt="vault.name">
-      <p>Title: {{vaultsById.name}}</p>
+    <div v-for="vault in vaults" :key="vault.id">
+      <router-link :to="{name:'vault', params:{vaultId: vault.Id}}">
+        Title: {{Vaults.name}}
+      </router-link>
       <button @click="deleteVault(vault)">Delete Vault</button>
     </div>
   </div>
@@ -24,20 +30,21 @@
       this.$store.dispatch("getAllVaults")
     },
     computed: {
-      vaultsById() {
+      vaults() {
         return this.$store.state.vaults;
       } //getAllVaults?
     },
     components: {
-      // VaultKeeps?
+
     },
     methods: {
       deleteVault(keep) {
         this.$store.dispatch("deleteVault", vault)
       }
     },
-    newVault() {
+    createNewVault() {
       this.$store.dispatch("newVault", this.newVault)
+      this.newVault = { name: "", description: "" }
     }
   }
 </script>
@@ -45,4 +52,4 @@
 <style>
 </style>
 
-<!-- vaultkeeps needs to show in here too -->
+<!-- vaultkeeps needs to show in here too? -->
