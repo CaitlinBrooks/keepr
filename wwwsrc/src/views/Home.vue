@@ -1,13 +1,14 @@
 <template>
   <div class="home">
     <h1>Dashboard</h1>
-    <UserVaults></UserVaults>
+    <UserVaults />
+    <keeps />
     <button @click="logout">Logout</button>
   </div>
 </template>
 
 <script>
-  import UserKeeps from "../components/UserKeeps.vue"
+  import Keeps from "../components/Keeps.vue"
   import UserVaults from "../components/UserVaults.vue"
   export default {
     //THIS IS THE USER HOMEBASE -- THEIR DASHBOARD
@@ -17,26 +18,25 @@
         return this.$store.state.user;
       }
     },
-    components: {
-      UserKeeps,
-      UserVaults
+    methods: {
+      logout() {
+        this.$store.dispatch("logout")
+      },
+      newKeep() {
+        return this.$store.dispatch("newKeep", this.keep);
+      }
     },
     mounted() {
-      this.$store.dispatch("getVaultById", this.user.id);
-      this.$store.dispatch("getKeepsByUserId", this.user.id);
+      this.$store.dispatch("getKeeps", this.user.id);
 
       //blocks users not logged in
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
       }
     },
-    methods: {
-      logout() {
-        this.$store.dispatch("logout")
-      }
+    components: {
+      Keeps,
+      UserVaults
     },
-    newKeep() {
-      return this.$store.dispatch("newKeep", this.keep);
-    }
   };
 </script>
