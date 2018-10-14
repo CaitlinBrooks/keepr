@@ -20,18 +20,14 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
-    keeps: [],
+    keeps: {},
     vaults: [],
-    keepsById: [],
     currentVault: {},
     vaultkeeps: []
   },
   mutations: {
-    setVaultById(state, vault) {
+    setVault(state, vault) {
       state.currentVault = vault
-    },
-    setKeepsByUserId(state, keepsById) {
-      state.keepsById = keepsById
     },
     setKeeps(state, keeps) {
       state.keeps = keeps
@@ -86,13 +82,13 @@ export default new Vuex.Store({
 
     // KEEPS
     newKeep({ commit, dispatch }, keepData) {
-      api.post('keeps', keepData)
+      api.post('/keeps', keepData)
         .then(res => {
           dispatch('getAllKeeps')
         })
     },
     updateKeep({ commit, dispatch }, keep) {
-      api.put('keeps' + keep.id, keep)
+      api.put('keeps/' + keep.id, keep)
         .then(res => {
           dispatch('getAllKeeps')
         })
@@ -100,25 +96,20 @@ export default new Vuex.Store({
     moveKeepToVault({ commit, dispatch }, payload) {
       api.post('/vaultkeeps', payload.vaultkeep)
         .then(res => {
-          dispatch('getAllKeeps')
+          payload.keep.keeps++
+          dispatch('updateKeep', payload.keep)
         })
     },
     deleteKeep({ commit, dispatch }, keepData) {
-      api.post("keeps", keepData.id)
+      api.delete("keeps/", keepData.id)
         .then(res => {
           dispatch('getAllKeeps')
         })
     },
-    getKeepsByUserId({ commit }, userId) {
-      api.get("keeps/" + userId)
+    getVaultKeeps({ commit, dispatch }, vaultId) {
+      api.get("vaultkeeps/" + vaultId)
         .then(res => {
-          commit("setKeepsByUserId", res.data)
-        })
-    },
-    getKeepsByVaultId({ commit, dispatch }, vaultId) {
-      api.get("keeps/vault/" + vaultId)
-        .then(res => {
-          commit("setKeepsByVaultId", res.data)
+          commit("setVaultKeeps", res.data)
         })
     },
     getAllKeeps({ commit, dispatch }) {

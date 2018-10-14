@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using VaultKeeps.Repositories;
 
 namespace keepr
 {
@@ -64,7 +65,7 @@ namespace keepr
       services.AddTransient<KeepsRepository>();
       services.AddTransient<VaultsRepository>();
       services.AddTransient<UserRepository>();
-      // services.AddTransient<VaultKeepsRepository>();
+      services.AddTransient<VaultKeepsRepository>();
       // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
     }
 
