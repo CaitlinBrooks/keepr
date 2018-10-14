@@ -27,7 +27,7 @@
       }
     },
     mounted() {
-      this.$store.dispatch("getKeeps", this.user.id);
+      this.$store.dispatch("getAllKeeps", this.user.id);
 
       //blocks users not logged in
       if (!this.$store.state.user.id) {

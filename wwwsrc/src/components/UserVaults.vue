@@ -1,15 +1,16 @@
 <template>
   <div class="userVaults">
-    <form @submit.prevent="createNewVault">
+    <form @submit.prevent="createVault">
       <input type="text" placeholder="Vault Name" v-model="newVault.name" required>
       <input type="text" placeholder="Description" v-model="newVault.description" required>
       <button type="submit">Create Vault</button>
     </form>
     <h1>Your Vaults</h1>
     <!-- <div class="keepCard" v-if="keep.isPrivate == 0"> -->
-    <div v-for="vault in vaults" :key="vault.id">
+    <div class="vault" v-for="vault in vaults" :key="vault.id">
+      {{vault.name}}
       <router-link :to="{name:'vault', params:{vaultId: vault.Id}}">
-        Title: {{Vaults.name}}
+        Title: {{vault.name}}
       </router-link>
       <button @click="deleteVault(vault)">Delete Vault</button>
     </div>
@@ -40,11 +41,11 @@
     methods: {
       deleteVault(keep) {
         this.$store.dispatch("deleteVault", vault)
+      },
+      createVault() {
+        this.$store.dispatch("newVault", this.newVault)
+        this.newVault = { name: "", description: "" };
       }
-    },
-    createNewVault() {
-      this.$store.dispatch("newVault", this.newVault)
-      this.newVault = { name: "", description: "" }
     }
   }
 </script>
