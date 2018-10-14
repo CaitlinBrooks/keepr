@@ -5,6 +5,7 @@
     <div v-for="vault in vaultsById" :key="vaultsById.id">
       <img :src="keep.img" class="keepCard" alt="vault.name">
       <p>Title: {{vaultsById.name}}</p>
+      <button type="submit">Delete Vault</button>
     </div>
   </div>
   </div>
