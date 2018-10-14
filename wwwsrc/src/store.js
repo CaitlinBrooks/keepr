@@ -120,12 +120,15 @@ export default new Vuex.Store({
     },
 
     // VAULTS
-    moveKeepToVaults() {
-      router.push({ name: 'vaults' })
+    deleteVaultKeep({ commit, dispatch }, vaultKeep) {
+      api.put("/vaultkeeps", vaultKeep)
+        .then(res => {
+          dispatch('getVaultKeeps', vaultKeep.vaultId)
+        })
     },
     newVault({ commit, dispatch }, vaultData) {
       api.post('vaults', vaultData)
-        .then(res => {
+        .then(serverVault => { //ask about why serverVault and not res
           dispatch('getAllVaults')
         })
     },
@@ -135,10 +138,10 @@ export default new Vuex.Store({
           dispatch('getAllVaults')
         })
     },
-    getVaultById({ commit, dispatch }, vaultId) {
+    getVault({ commit, dispatch }, vaultId) {
       api.get('vaults/' + vaultId)
         .then(res => {
-          commit("setVaultById", res.data)
+          commit("setVaults", res.data)
         })
     },
     getAllVaults({ commit, dispatch }) {
