@@ -9,8 +9,8 @@ namespace keepr.Repositories
 
   public class VaultsRepository
   {
-    private IDbConnection _db;
-
+    IDbConnection _db;
+    public string TableName = "vaults";
     public VaultsRepository(IDbConnection db)
     {
       _db = db;
@@ -34,8 +34,8 @@ namespace keepr.Repositories
     public Vault Create(Vault vault)
     {
       int id = _db.ExecuteScalar<int>(@"
-        INSERT INTO vaults (name, description, Id)
-        VALUES (@Name, @Description, @Id);
+        INSERT INTO vaults (name, description, userId)
+        VALUES (@Name, @Description, @UserId);
         SELECT LAST_INSERT_ID();", vault
       );
       vault.Id = id;
@@ -46,8 +46,8 @@ namespace keepr.Repositories
     public Vault Update(Vault vault)
     {
       _db.Execute(@"
-      UPDATE vaults SET (name, description, Id) 
-      VALUES (@Name, @Description, @Id)
+      UPDATE vaults SET (name, description, userId) 
+      VALUES (@Name, @Description, @UserId)
       WHERE id = @Id
       ", vault);
       return vault;
@@ -65,19 +65,16 @@ namespace keepr.Repositories
     public IEnumerable<Vault> GetVaultsById(string id)
     {
       return _db.Query<Vault>(@"
-        SELECT * FROM uservaults
-        INNER JOIN vaults ON vaults.id = uservaults.vaultId
-        WHERE userId = @id
-      ", new { id });
+        SELECT * FROM vaults WHERE userId = @id", new { id });
     }
 
     //     SELECT* FROM vaultkeeps vk
     // INNER JOIN keeps k ON k.id = vk.keepId
-    // WHERE (vaultId = 2) // ask about this, I don't understand.
+    // WHERE (vaultId = 2) //
 
-    public int Delete(int id)
+    public bool Delete(int vaultId)
     {
-      return _db.Execute("DELETE FROM vaults WHERE id = @id", new { id });
+      return _db.Execute("DELETE FROM vaults WHERE id = @vaultd", new { vaultId }) == 1;
     }
   }
 }

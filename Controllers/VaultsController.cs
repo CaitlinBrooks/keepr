@@ -26,23 +26,32 @@ namespace keepr.Controllers
     [HttpGet]
     public IEnumerable<Vault> Get()
     {
-      var id = HttpContext.User.Identity.Name;
-      return _repo.GetAll(id);
+      var userId = HttpContext.User.Identity.Name;
+      return _repo.GetAll(userId);
+    }
+    [Authorize]
+    [HttpGet("{vaultId}")]
+    public Vault GetById(int vaultId)
+    {
+      return _repo.GetById(vaultId);
     }
 
     [Authorize]
     [HttpPost]
     public Vault Post([FromBody] Vault vault)
     {
+      var userId = HttpContext.User.Identity.Name;
       if (ModelState.IsValid)
       {
-        vault = new Vault(vault.UserId, vault.Name, vault.Description);
         return _repo.Create(vault);
       }
       throw new Exception("INVALID VAULT");
     }
 
-
-
+    [HttpDelete("{id}")]
+    public void Delete([FromRoute] int id)
+    {
+      _repo.Delete(id);
+    }
   }
 }

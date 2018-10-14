@@ -12,14 +12,5 @@ namespace keepr.Models
     [Required]
     [MaxLength(255)]
     public string Description { get; set; } //vault description
-
-
-    public Vault(string userId, string name, string description) //needs these to create a vault
-    {
-      Name = name;
-      Description = description;
-      UserId = userId;
-    }
-    public Vault() { }
   }
 }
