@@ -19,11 +19,32 @@
 <script>
   export default {
     name: "userKeeps",
+    data() {
+      return {
+        newKeep: {
+
+        }
+      }
+    },
     computed: {
       keepsById() {
         return this.$store.state.keepsById;
-      }
+      },
+      getAllVaults() {
+        return this.$store.state.vaults;
+      },
+      methods: {
+        newKeep() {
+          this.$store.dispatch("newKeep", this.newKeep);
 
+        },
+        deleteKeep(keep) {
+          this.$store.dispatch("deleteKeep", keep);
+        },
+        moveKeepToVault() {
+          // this.vaultKeep.keepId = this. -- am I on the right track?
+        }
+      }
     }
   };
 </script>
