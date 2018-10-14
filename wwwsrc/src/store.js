@@ -128,7 +128,7 @@ export default new Vuex.Store({
     },
     newVault({ commit, dispatch }, vaultData) {
       api.post('vaults', vaultData)
-        .then(serverVault => { //ask about why serverVault and not res
+        .then(res => {
           dispatch('getAllVaults')
         })
     },
