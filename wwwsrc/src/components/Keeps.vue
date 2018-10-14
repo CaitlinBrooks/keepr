@@ -9,9 +9,9 @@
         Create New Keep
       </button>
     </form>
-    <div class="col-12" v-for="keep in keeps" :key="keep.id">
+    <div class="col-12 keeps-view" v-for="keep in keeps" :key="keep.id">
       <!-- <div class="keepCard" v-if="keep.isPrivate == 0"> -->
-      <img :src="keep.img" class="keepCard" alt="keep.name" style="width:200px;height:200px;">
+      <img :src="keep.img" class="keepCard image" alt="keep.name" style="width:200px;height:200px;">
       <p>{{keep.name}}</p>
       <!-- <p>{{keep.description}}</p> -->
       <button class="btn" @click="deleteKeep(keep)">Delete</button>
@@ -73,4 +73,17 @@
 </script>
 
 <style>
+  /* .keeps-view {
+    position: relative;
+    width: 50%;
+  }
+
+  .image {
+    opacity: 1;
+    display: block;
+    width: 200px;
+    height: 200px;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  } */
 </style>
