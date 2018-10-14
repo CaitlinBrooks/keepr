@@ -20,21 +20,25 @@ namespace keepr.Controllers
     [HttpGet]
     public IEnumerable<Keep> Get()
     {
-      var keeps = _repo.GetAll();
-      return keeps;
+      return _repo.GetAll();
     }
 
-    [HttpGet("/vaultkeeps/{id}")]
-    public IEnumerable<Keep> Get(int id)
-    {
-      return _repo.GetbyVaultId(id);
-    }
+    // [HttpGet("{userid}")]
+    // public IEnumerable<Keep> Get(string userid)
+    // {
+    //   userid = HttpContext.User.Identity.Name;
+    //   return _repo.GetById(userid);
+    // }
 
-    [HttpGet("{userid}")]
-    public IEnumerable<Keep> Get(string userid)
+    [HttpPut("{id}")]
+    public void UpdateKeep([FromBody] Keep keep)
     {
-      userid = HttpContext.User.Identity.Name;
-      return _repo.GetById(userid);
+      if (ModelState.IsValid)
+      {
+        _repo.Update(keep);
+        return;
+      }
+      throw new Exception("INVALID KEEP");
     }
 
     [Authorize]
@@ -43,16 +47,16 @@ namespace keepr.Controllers
     {
       if (ModelState.IsValid)
       {
-        keep = new Keep(keep.UserId, keep.Img, keep.Name, keep.Description);
+        keep.UserId = HttpContext.User.Identity.Name;
         return _repo.Create(keep);
       }
       throw new Exception("INVALID KEEP");
     }
 
-    [HttpDelete("{{id}}")]
-    public void Delete(int keepId)
+    [HttpDelete("{id}")]
+    public void Delete([FromRoute] int Id)
     {
-      _repo.Delete(keepId);
+      _repo.Delete(Id);
     }
 
   }

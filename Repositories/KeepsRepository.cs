@@ -11,6 +11,8 @@ namespace keepr.Repositories
   {
     private IDbConnection _db;
 
+
+    public string TableName = "keeps";
     public KeepsRepository(IDbConnection db)
     {
       _db = db;
@@ -21,84 +23,51 @@ namespace keepr.Repositories
     //GET ALL KEEPS
     public IEnumerable<Keep> GetAll()
     {
-      return _db.Query<Keep>("SELECT * FROM keeps;");
+      return _db.Query<Keep>($"SELECT * FROM {TableName}");
     }
 
     //GET KEEP BY ID
-    public IEnumerable<Keep> GetById(string userid)
+    public Keep GetById(int id)
     {
-      return _db.Query<Keep>("SELECT * FROM keeps WHERE userid = @userid;", new { userid });
-    }
-    // GET KEEP BY VAULT ID
-
-    public IEnumerable<Keep> GetbyVaultId(int id)
-    {
-      return _db.Query<Keep>("SELECT * FROM vaultkeeps vk INNER JOIN keep k ON k.id = vk.keepId WHERE (vaultId = @vaultId);", new { id });
+      return _db.Query<Keep>("SELECT * FROM keeps WHERE id = @id;", new { id }).FirstOrDefault();
     }
     //CREATE KEEP
     public Keep Create(Keep keep)
     {
       int id = _db.ExecuteScalar<int>(@"
-        INSERT INTO keeps (name, description, Img, userId)
-        VALUES (@Name, @Description, @Img, @userId);
+        INSERT INTO keeps (name, description, Img, userId, isPrivate, views, shares, keeps)
+        VALUES (@Name, @Description, @Img, @userId, @IsPrivate, @Views, @Shares, @keeps);
         SELECT LAST_INSERT_ID();", keep
       );
       keep.Id = id;
       return keep;
     }
-    public VaultKeep CreateVaultKeep(VaultKeep vaultkeep)
-    {
-      int id = _db.ExecuteScalar<int>(@"
-        INSERT INTO vaultkeeps (id, userId, vaultId, keepId)
-        VALUES (@Id, @UserId, @VaultId, @KeepId);
-        SELECT LAST_INSERT_ID();", vaultkeep
-      );
-      vaultkeep.Id = id;
-      return vaultkeep;
-    }
 
     //UPDATE KEEP
-    public Keep Update(Keep keep)
+    public void Update(Keep keep)
     {
       _db.Execute(@"
-      UPDATE keeps SET (userId, Id, img, name, description, isPrivate, views, keeps, shares) 
-      VALUES (@userId, @Id, @img, @name, @description, @isPrivate, @views, @keeps, @shares)
+      UPDATE keeps SET views = @Views, shares = @Shares, keeps = @Keeps
       WHERE id = @Id
       ", keep);
-      return keep;
     }
 
     //DELETE KEEP
-    public Keep Delete(Keep keep)
+    public bool Delete(int keepId)
     {
-      _db.Execute("DELETE FROM keeps WHERE id = @Id", keep);
-      return keep;
-    }
-
-    //DELETE VAULTKEEP
-
-    public VaultKeep Delete(VaultKeep vaultkeep)
-    {
-      _db.Execute("DELETE FROM vaultkeeps WHERE vaultkeepid = @Id", vaultkeep);
-      return vaultkeep;
+      return _db.Execute("DELETE FROM keeps WHERE id = @keepId", new { keepId }) == 1;
     }
 
     public IEnumerable<Keep> GetKeepsByUserId(string id)
     {
       return _db.Query<Keep>(@"
-        SELECT * FROM userkeeps
-        INNER JOIN keeps ON keeps.id = userkeeps.keepId
-        WHERE id = @userId
+        SELECT * FROM keeps
+        WHERE userid = @Id
       ", new { id });
     }
 
     //     SELECT* FROM vaultkeeps vk
     // INNER JOIN keeps k ON k.id = vk.keepId
     // WHERE (vaultId = 2) // ask about this, I don't totally understand.
-
-    public int Delete(int id)
-    {
-      return _db.Execute("DELETE FROM keeps WHERE id = @id", new { id });
-    }
   }
 }
