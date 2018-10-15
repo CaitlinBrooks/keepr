@@ -1,6 +1,7 @@
 <template>
   <div class="vault">
     <h1>{{vault.name}}</h1>
+    <img src="../assets/KeeprLogonb.png" alt="Circle Keepr">
     <div v-for="keep in keeps" :key="keep.id">
       <img :src="keep.img" class="keepCard" alt="keep.name" style="width:200px;height:200px;">
       <p>{{keep.name}}</p>

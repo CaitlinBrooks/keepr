@@ -12,7 +12,7 @@
             <button type="submit">Create Account</button>
         </form>
         <div>
-            <img src="../assets/circleKeeprLogo.png" alt="Circle Keepr">
+            <img src="../assets/KeeprLogonb.png" alt="Circle Keepr">
         </div>
         <div @click="loginForm = !loginForm">
             <p v-if="loginForm">No Account? Click to Register</p>
