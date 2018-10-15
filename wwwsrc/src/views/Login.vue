@@ -11,6 +11,9 @@
             <input type="password" v-model="newUser.password" placeholder="password">
             <button type="submit">Create Account</button>
         </form>
+        <div>
+            <img src="../assets/circleKeeprLogo.png" alt="Circle Keepr">
+        </div>
         <div @click="loginForm = !loginForm">
             <p v-if="loginForm">No Account? Click to Register</p>
             <p v-else>Already have an account? Click to Login</p>

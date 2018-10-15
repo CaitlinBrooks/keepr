@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <h1>Your Dashboard</h1>
+    <!-- <h1>Your Dashboard</h1> -->
+    <img src="../assets/circleKeeprLogo.png" alt="Circle Keepr">
     <UserVaults />
     <keeps />
     <button @click="logout">Logout</button>
