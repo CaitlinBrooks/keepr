@@ -21,6 +21,19 @@
       <p>Views: {{currentKeep.views}}</p>
       <p>Keeps: {{currentKeep.keeps}}</p>
       <p>Shares: {{currentKeep.shares}}</p>
+      <!-- <h2>Modal Example</h2>
+
+      Trigger/Open The Modal
+      <button id="myBtn">Open Modal</button>
+
+      The Modal
+      <div id="myModal" class="modal">
+
+        Modal content
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>Some text in the Modal..</p>
+        </div> -->
     </div>
   </div>
   </div>
@@ -73,17 +86,41 @@
 </script>
 
 <style>
-  /* .keeps-view {
-    position: relative;
-    width: 50%;
+  /* used W3Schools Modal Assistance */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
   }
 
-  .image {
-    opacity: 1;
-    display: block;
-    width: 200px;
-    height: 200px;
-    transition: .5s ease;
-    backface-visibility: hidden;
-  } */
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 </style>

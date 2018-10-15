@@ -43,6 +43,7 @@
         this.$store.dispatch("deleteVault", vault)
       },
       createVault() {
+        debugger
         this.$store.dispatch("newVault", this.newVault)
         this.newVault = { name: "", description: "" };
       }
