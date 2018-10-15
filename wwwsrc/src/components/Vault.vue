@@ -5,7 +5,7 @@
       <img :src="keep.img" class="keepCard" alt="keep.name" style="width:200px;height:200px;">
       <p>{{keep.name}}</p>
       <p>{{keep.description}}</p>
-      <button @click="=deleteVaultKeep(keep)">Delete</button>
+      <button @click="deleteVaultKeep">Delete</button>
     </div>
   </div>
   </div>
