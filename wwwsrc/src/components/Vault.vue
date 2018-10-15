@@ -6,6 +6,7 @@
       <p>{{keep.name}}</p>
       <p>{{keep.description}}</p>
       <button @click="deleteVaultKeep">Delete</button>
+      <!-- deleteVaultKeep takes in a keep -->
     </div>
   </div>
   </div>

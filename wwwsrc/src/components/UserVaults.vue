@@ -5,7 +5,7 @@
       <input type="text" placeholder="Description" v-model="newVault.description" required>
       <button type="submit">Create Vault</button>
     </form>
-    <h1>Your Vaults</h1>
+    <h2>Your Vaults</h2>
     <!-- <div class="keepCard" v-if="keep.isPrivate == 0"> -->
     <div class="vault" v-for="vault in vaults" :key="vault.id">
       {{vault.name}}
