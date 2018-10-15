@@ -94,14 +94,14 @@ export default new Vuex.Store({
         })
     },
     moveKeepToVault({ commit, dispatch }, payload) {
-      api.post('/vaultkeeps', payload.vaultkeep)
+      api.post('/vaultkeeps', payload)
         .then(res => {
           payload.keep.keeps++
           dispatch('updateKeep', payload.keep)
         })
     },
     deleteKeep({ commit, dispatch }, keepData) {
-      api.delete("keeps/", keepData.id)
+      api.delete("keeps/" + keepData.id)
         .then(res => {
           dispatch('getAllKeeps')
         })

@@ -9,7 +9,7 @@
     <!-- <div class="keepCard" v-if="keep.isPrivate == 0"> -->
     <div class="vault" v-for="vault in vaults" :key="vault.id">
       {{vault.name}}
-      <router-link :to="{name:'vault', params:{vaultId: vault.Id}}">
+      <router-link :to="{name:'vault', params:{vaultId: vault.id}}">
         Vault Name: {{vault.name}}
       </router-link>
       <button @click="deleteVault(vault)">Delete Vault</button>
@@ -42,7 +42,6 @@
         this.$store.dispatch("deleteVault", vault)
       },
       createVault() {
-        debugger
         this.$store.dispatch("newVault", this.newVault)
         this.newVault = { name: "", description: "" };
       }

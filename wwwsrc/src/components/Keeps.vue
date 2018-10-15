@@ -18,9 +18,13 @@
       <button class="btn" @click="viewKeep(keep)">View</button>
       <button class="btn" @click="shareKeep(keep)">Share</button>
       <!-- Can I use a modal? How? -->
-      <p>Views: {{currentKeep.views}}</p>
-      <p>Keeps: {{currentKeep.keeps}}</p>
-      <p>Shares: {{currentKeep.shares}}</p>
+      <p>Views: {{keep.views}}</p>
+      <p>Keeps: {{keep.keeps}}</p>
+      <p>Shares: {{keep.shares}}</p>
+      <select v-model="vaultKeep.vaultId" @change="vaultKeep.keepId = keep.id">
+        <option v-for="vault in vaults" :value="vault.id">{{vault.name}}</option>
+      </select>
+      <button v-if="vaultKeep.keepId == keep.id" @click="moveKeepToVault(keep)">Add to Vault</button>
       <!-- <h2>Modal Example</h2>
 
       Trigger/Open The Modal
@@ -77,9 +81,9 @@
         this.currentKeep = keep;
         this.$store.dispatch("updateKeep", keep)
       },
-      moveKeepToVault() {
-        this.vaultKeep.keepId = this.currentKeep.id;
-        this.$store.dispatch("moveKeepToVault", { vaultKeep: this.vaultkeep, keep: this.currentKeep })
+      moveKeepToVault(keep) {
+        this.$store.dispatch("moveKeepToVault", { keep, keepId: this.vaultKeep.keepId, vaultId: this.vaultKeep.vaultId })
+        this.vaultKeep = {};
       }
     }
   };
