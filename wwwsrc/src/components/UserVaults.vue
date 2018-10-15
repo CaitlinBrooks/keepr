@@ -36,7 +36,6 @@
       } //getAllVaults?
     },
     components: {
-
     },
     methods: {
       deleteVault(keep) {
