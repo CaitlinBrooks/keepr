@@ -10,7 +10,7 @@
     <div class="vault" v-for="vault in vaults" :key="vault.id">
       {{vault.name}}
       <router-link :to="{name:'vault', params:{vaultId: vault.Id}}">
-        Title: {{vault.name}}
+        Vault Name: {{vault.name}}
       </router-link>
       <button @click="deleteVault(vault)">Delete Vault</button>
     </div>
