@@ -38,7 +38,7 @@
     components: {
     },
     methods: {
-      deleteVault(keep) {
+      deleteVault(vault) {
         this.$store.dispatch("deleteVault", vault)
       },
       createVault() {
