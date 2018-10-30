@@ -1,5 +1,5 @@
 <template>
-  <div class="publicKeeps row">
+  <div class="publicKeeps row gallery-container">
     <h2>Keeps</h2>
     <form @submit.prevent="createNewKeep">
       <input type="text" placeholder="keep name" v-model="newKeep.name" required>
